@@ -30,7 +30,7 @@
 #' @export
 #' @examples
 #' # Backend using a in-memory tibble
-#' data = tibble::as.tibble(iris)
+#' data = tibble::as_tibble(iris)
 #' data$Sepal.Length[1:30] = NA
 #' data$row_id = 1:150
 #' b = DataBackendDplyr$new(data, primary_key = "row_id")
@@ -98,7 +98,7 @@ DataBackendDplyr = R6Class("DataBackendDplyr", inherit = DataBackend, cloneable 
       setDT(collect(head(private$.data, n)))[]
     },
 
-    distinct = function(rows, cols) {
+    distinct = function(rows, cols, na_rm = TRUE) {
       # TODO: what does dplyr::disinct return for enums?
       assert_names(cols, type = "unique")
       cols = intersect(cols, self$colnames)
@@ -110,7 +110,13 @@ DataBackendDplyr = R6Class("DataBackendDplyr", inherit = DataBackend, cloneable 
 
       get_distinct = function(col) {
         x = collect(distinct(select_at(tbl, col)))[[1L]]
-        if (is.factor(x)) as.character(x) else x
+        if (is.factor(x)) {
+          x = as.character(x)
+        }
+        if (na_rm) {
+          x = x[!is.na(x)]
+        }
+        x
       }
       setNames(lapply(cols, get_distinct), cols)
     },
