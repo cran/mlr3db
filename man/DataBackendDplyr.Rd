@@ -33,8 +33,9 @@ These can be retrieved from the stored \link[mlr3:DataBackend]{mlr3::DataBackend
 To protect your credentials, it is recommended to use the \CRANpkg{secret} package.
 }
 
-Alternatively, use \code{\link[mlr3:as_data_backend]{mlr3::as_data_backend()}} on a \code{\link[dplyr:tbl]{dplyr::tbl()}} to
-construct a \link{DataBackend} for you.
+Alternatively, use \code{\link[mlr3:as_data_backend]{mlr3::as_data_backend()}} on a \code{\link[dplyr:tbl]{dplyr::tbl()}} to construct a \link{DataBackend} for you.
+Note that only objects of class \code{"tbl_lazy"} will be converted to a \link{DataBackendDplyr} (this includes all connectors from \CRANpkg{dbplyr}).
+Local \code{"tbl"} objects such as \code{\link[tibble:tibble]{tibbles}} will converted to a \link[mlr3:DataBackendDataTable]{DataBackendDataTable}.
 }
 
 \section{Fields}{
@@ -47,7 +48,7 @@ Referenced columns get automatically converted to factors in \verb{$data()} and 
 \item \code{connector} :: \verb{function()}\cr
 Function which is called to re-connect in case the connection became invalid.
 \item \code{valid} :: \code{logical(1)}\cr
-Returns \code{NA} if the data does not inherits from \code{"tbl_sql"} (i.e., it is not a remote SQL data base).
+Returns \code{NA} if the data does not inherits from \code{"tbl_sql"} (i.e., it is not a real SQL data base).
 Returns the result of \code{\link[DBI:dbIsValid]{DBI::dbIsValid()}} otherwise.
 }
 }

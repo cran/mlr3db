@@ -1,11 +1,11 @@
-ea91dce82a9abca902d30b32c7fce424 *DESCRIPTION
-1a26f4ece1cc084bb1f66fefdf522315 *NAMESPACE
-54dedba1bf1842010faf7f377990adc0 *NEWS.md
-ff2b10676c06bebabcbbd823da40d401 *R/DataBackendDplyr.R
+89a474eff32bf4295975382711f99918 *DESCRIPTION
+f333c41d8a75ca889371427b4d24bd1b *NAMESPACE
+c6db11a754123bf003cba5355f1199ae *NEWS.md
+c24b3822970a78c48b3beb3657e78a33 *R/DataBackendDplyr.R
 55b5996e5796f66b71e3e228ade2ee5e *R/as_sqlite_backend.R
 1d671dba74435d47911666ce5637abc2 *R/zzz.R
 e07b65a7d7ec31899f0736880467c1de *README.md
-ed1c06e7fd8d0adfa527046aa044a92d *man/DataBackendDplyr.Rd
+aa02a14fb5149afbd26f3544e4b4c0c1 *man/DataBackendDplyr.Rd
 bac574b06c3b7ae70eaf69cef7667c02 *man/as_sqlite_backend.Rd
 4ac2084a5df264964e30077c903b4639 *man/figures/logo_navbar.png
 04262baa02f42d5854da30c4e67ee3c0 *man/mlr3db-package.Rd
@@ -14,6 +14,6 @@ a9335a193a10d4a255bcff559d1eb790 *tests/testthat.R
 d54a70b4b72a26d773804a4fd47f88a5 *tests/testthat/setup.R
 7cac5b9a31c670d47005d8ddd36263e7 *tests/testthat/teardown.R
 73c77495321b3e4b036ec36815db0683 *tests/testthat/test_as_sqlite_backend.R
-8581a41984084bd1f565dfaafae6fa8d *tests/testthat/test_basic_ops.R
+b2f9105b58b4da6aebe61fd8d9e61a73 *tests/testthat/test_basic_ops.R
 0818fb5f1957fafed4a81911f1f93df8 *tests/testthat/test_reconnect.R
-65703f77589fc79adfc02836350a0e31 *tests/testthat/test_train_predict.R
+b47201c8920ebf214db620dd50cf8adf *tests/testthat/test_train_predict.R

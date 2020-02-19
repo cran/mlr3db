@@ -35,8 +35,9 @@
 #'   These can be retrieved from the stored [mlr3::DataBackend]/[mlr3::Task].
 #'   To protect your credentials, it is recommended to use the \CRANpkg{secret} package.
 #'
-#' Alternatively, use [mlr3::as_data_backend()] on a [dplyr::tbl()] to
-#' construct a [DataBackend] for you.
+#' Alternatively, use [mlr3::as_data_backend()] on a [dplyr::tbl()] to construct a [DataBackend] for you.
+#' Note that only objects of class `"tbl_lazy"` will be converted to a [DataBackendDplyr] (this includes all connectors from \CRANpkg{dbplyr}).
+#' Local `"tbl"` objects such as [`tibbles`][tibble::tibble()] will converted to a [DataBackendDataTable][mlr3::DataBackendDataTable].
 #'
 #' @section Fields:
 #' All fields from [mlr3::DataBackend], and additionally:
@@ -49,7 +50,7 @@
 #'   Function which is called to re-connect in case the connection became invalid.
 #'
 #' * `valid` :: `logical(1)`\cr
-#'   Returns `NA` if the data does not inherits from `"tbl_sql"` (i.e., it is not a remote SQL data base).
+#'   Returns `NA` if the data does not inherits from `"tbl_sql"` (i.e., it is not a real SQL data base).
 #'   Returns the result of [DBI::dbIsValid()] otherwise.
 #'
 #' @section Methods:
@@ -158,7 +159,7 @@ DataBackendDplyr = R6Class("DataBackendDplyr", inherit = DataBackend, cloneable 
         filter_at(private$.data, self$primary_key, all_vars(. %in% rows)),
         union(cols, self$primary_key))))
 
-      private$.recode(res[list(rows), cols, nomatch = 0L, with = FALSE, on = self$primary_key])
+      private$.recode(res[list(rows), cols, nomatch = NULL, with = FALSE, on = self$primary_key])
     },
 
     head = function(n = 6L) {
@@ -285,6 +286,6 @@ DataBackendDplyr = R6Class("DataBackendDplyr", inherit = DataBackend, cloneable 
 
 #' @importFrom mlr3 as_data_backend
 #' @export
-as_data_backend.tbl = function(data, primary_key, strings_as_factors = TRUE) {
+as_data_backend.tbl_lazy = function(data, primary_key, strings_as_factors = TRUE) {
   DataBackendDplyr$new(data, primary_key)
 }
