@@ -22,24 +22,25 @@ as_sqlite_backend = function(data, path = NULL, ...) {
 }
 
 #' @export
-as_sqlite_backend.Task = function(data, path = NULL, ...) {
+as_sqlite_backend.Task = function(data, path = NULL, ...) { # nolint
   data$backend = sqlite_backend_from_data(cbind(data$data(), data.table(..row_id = data$row_ids)), path, "..row_id")
   data
 }
 
 #' @export
-as_sqlite_backend.DataBackend = function(data, path = NULL, ...) {
+as_sqlite_backend.DataBackend = function(data, path = NULL, ...) { # nolint
   sqlite_backend_from_data(data$head(Inf), path, data$primary_key)
 }
 
 #' @export
-as_sqlite_backend.data.frame = function(data, path = NULL, primary_key = "..row_id", ...) {
+as_sqlite_backend.data.frame = function(data, path = NULL, primary_key = "..row_id", ...) { # nolint
   assert_string(primary_key)
   if (primary_key %in% names(data)) {
-    assert_atomic_vector(data[[primary_key]], unique = TRUE)
+    assert_integerish(data[[primary_key]], any.missing = FALSE, unique = TRUE)
   } else {
     data[[primary_key]] = seq_len(nrow(data))
   }
+
   sqlite_backend_from_data(data, path, "..row_id")
 }
 
@@ -54,12 +55,21 @@ sqlite_backend_from_data = function(data, path, primary_key) {
   })
 
   con = DBI::dbConnect(RSQLite::SQLite(), dbname = path, flags = RSQLite::SQLITE_RWC)
-  DBI::dbWriteTable(con, "data", data)
+  field_types = setNames("INTEGER NOT NULL PRIMARY KEY", primary_key)
+  DBI::dbWriteTable(con, "data", data, row.names = FALSE, field.types = field_types)
   DBI::dbDisconnect(con)
 
   con = DBI::dbConnect(RSQLite::SQLite(), path, flags = RSQLite::SQLITE_RO)
   backend = DataBackendDplyr$new(dplyr::tbl(con, "data"), primary_key = primary_key)
+  backend$connector = sqlite_reconnector(path)
 
   on.exit()
   return(backend)
+}
+
+sqlite_reconnector = function(path) {
+  force(path)
+  function() {
+    DBI::dbConnect(RSQLite::SQLite(), path, flags = RSQLite::SQLITE_RO)
+  }
 }
