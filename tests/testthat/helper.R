@@ -29,6 +29,16 @@ disconnect.SQLiteConnection = function(x) {
 registerS3method("disconnect", "SQLiteConnection", disconnect.SQLiteConnection)
 
 disconnect.DataBackend = function(x) {
-    disconnect(private(x)$.data)
+  x$finalize()
 }
 registerS3method("disconnect", "DataBackend", disconnect.DataBackend)
+
+extract_db_dir = function(b) {
+  if (inherits(b, "DataBackendDplyr")) {
+    private(b)$.data$src$con@dbname
+  } else if (inherits(b, "DataBackendDuckDB")) {
+    private(b)$.data@driver@dbdir
+  } else {
+    stop("Unknown Backend")
+  }
+}
