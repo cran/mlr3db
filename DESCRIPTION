@@ -1,6 +1,6 @@
 Package: mlr3db
 Title: Data Base Backend for 'mlr3'
-Version: 0.3.0
+Version: 0.4.0
 Authors@R: 
     person(given = "Michel",
            family = "Lang",
@@ -23,8 +23,8 @@ Encoding: UTF-8
 Config/testthat/edition: 3
 RoxygenNote: 7.1.1
 NeedsCompilation: no
-Packaged: 2020-12-16 12:47:47 UTC; lang
+Packaged: 2021-03-09 08:03:46 UTC; lang
 Author: Michel Lang [cre, aut] (<https://orcid.org/0000-0001-9754-0393>)
 Maintainer: Michel Lang <michellang@gmail.com>
 Repository: CRAN
-Date/Publication: 2020-12-16 14:00:03 UTC
+Date/Publication: 2021-03-09 12:10:02 UTC
