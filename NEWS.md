@@ -1,3 +1,7 @@
+# mlr3db 0.4.1
+
+- Temporarily disabled some tests to overcome some regressions in duckdb.
+
 # mlr3db 0.4.0
 
 * Added a `show_query()` method for `DataBackendDplyr` (#4).
