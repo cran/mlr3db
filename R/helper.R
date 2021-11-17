@@ -1,7 +1,10 @@
 recode = function(tab, levels) {
-  for (col in intersect(names(tab), names(levels))) {
-    set(tab, i = NULL, j = col, value = factor(tab[[col]], levels = levels[[col]]))
+  if (length(levels) > 0L) {
+    for (col in intersect(names(tab), names(levels))) {
+      set(tab, i = NULL, j = col, value = factor(tab[[col]], levels = levels[[col]]))
+    }
   }
+
   tab[]
 }
 
@@ -16,13 +19,8 @@ get_db_path = function(path, hash, extension) {
     dir.create(parent, recursive = TRUE)
   }
 
-  hash = gsub("[^[:alnum:]._-]", "_", hash)
-  file.path(parent, sprintf("%s.%s", hash, extension))
-}
-
-hash_data_frame = function(x) {
-  if (is.data.table(x)) {
-    x = as.data.frame(x)
-  }
-  digest::digest(x, algo = "xxhash64")
+  file.path(parent, sprintf("%s.%s",
+    gsub("[^[:alnum:]._-]", "_", hash),
+    extension)
+  )
 }

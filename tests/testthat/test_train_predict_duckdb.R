@@ -1,5 +1,3 @@
-skip_if_not_installed("duckdb", "0.2.6")
-
 b = as_duckdb_backend(iris, path = tempfile())
 task = mlr3::TaskClassif$new("iris_duckdb", b, "Species")
 learner = mlr3::mlr_learners$get("classif.featureless")
@@ -18,6 +16,12 @@ test_that("resample works", {
     rr = mlr3::resample(task, learner, mlr3::rsmp("cv", folds = 3))
   })
   expect_resample_result(rr)
+})
+
+test_that("predict_newdata", {
+  learner$train(task, 1:120)
+  p = learner$predict_newdata(b)
+  expect_prediction(p)
 })
 
 disconnect(b)

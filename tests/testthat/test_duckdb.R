@@ -1,5 +1,3 @@
-skip_if_not_installed("duckdb", "0.2.6")
-
 test_that("Valid DataBackend", {
   data = iris
   data$Petal.Length[91:120] = NA
@@ -10,6 +8,7 @@ test_that("Valid DataBackend", {
 
 test_that("strings_as_factors", {
   data = iris
+  data[["Species"]] = as.character(data[["Species"]])
 
   b = as_duckdb_backend(data, strings_as_factors = FALSE, path = tempfile())
   expect_character(b$head()$Species, any.missing = FALSE)
@@ -32,4 +31,19 @@ test_that("distinct with NULL rows", {
     b$distinct(NULL, b$colnames),
     b$distinct(b$rownames, b$colnames)
   )
+})
+
+test_that("ordering", {
+  path = tempfile()
+  con = DBI::dbConnect(duckdb::duckdb(), dbdir = path, read_only = FALSE)
+  on.exit(DBI::dbDisconnect(con, shutdown = TRUE))
+
+  df = data.frame(id = 5:1, x = 1:5)
+  DBI::dbWriteTable(con, "data", df, row.names = FALSE)
+  b = DataBackendDuckDB$new(con, "data", "id")
+
+  expect_equal(b$rownames, 1:5)
+  expect_equal(b$colnames, c("id", "x"))
+  expect_equal(b$head()$id, 1:5)
+  expect_equal(b$data(b$rownames, "id")$id, 1:5)
 })
