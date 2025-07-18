@@ -1,32 +1,36 @@
 Package: mlr3db
 Title: Data Base Backend for 'mlr3'
-Version: 0.5.2
-Authors@R: 
-    person(given = "Michel",
-           family = "Lang",
-           role = c("cre", "aut"),
-           email = "michellang@gmail.com",
-           comment = c(ORCID = "0000-0001-9754-0393"))
-Description: Extends the 'mlr3' package with a backend to
-    transparently work with databases such as 'SQLite', 'DuckDB', 'MySQL',
-    'MariaDB', or 'PostgreSQL'. The package provides two additional backends:
+Version: 0.6.0
+Authors@R: c(
+    person("Michel", "Lang", , "michellang@gmail.com", role = c("aut"),
+           comment = c(ORCID = "0000-0001-9754-0393")),
+    person("Lona", "Koers", , "lona.koers@gmail.com", role = "aut"),
+    person("Marc", "Becker", , "marcbecker@posteo.de", role = c("cre", "aut"),
+           comment = c(ORCID = "0000-0002-8115-0400"))
+  )
+Description: Extends the 'mlr3' package with a backend to transparently
+    work with databases such as 'SQLite', 'DuckDB', 'MySQL', 'MariaDB', or
+    'PostgreSQL'. The package provides three additional backends:
     'DataBackendDplyr' relies on the abstraction of package 'dbplyr' to
-    interact with most DBMS. 'DataBackendDuckDB' operates on 'DuckDB' data bases
-    and also on Apache Parquet files.
+    interact with most DBMS. 'DataBackendDuckDB' operates on 'DuckDB' data
+    bases and also on Apache Parquet files. 'DataBackendPolars' operates on
+    'Polars' data frames.
 License: LGPL-3
 URL: https:///mlr3db.mlr-org.com, https://github.com/mlr-org/mlr3db
 BugReports: https://github.com/mlr-org/mlr3db/issues
 Depends: mlr3 (>= 0.13.0), R (>= 3.1.0)
-Imports: R6 (>= 2.4.0), backports, checkmate, data.table, mlr3misc (>=
-        0.10.0)
-Suggests: DBI, RSQLite, dbplyr, dplyr, duckdb (>= 0.4.0), future,
-        future.apply, future.callr, lgr, testthat (>= 3.0.0), tibble
-Encoding: UTF-8
+Imports: backports, checkmate, data.table, mlr3misc (>= 0.10.0), R6
+Suggests: DBI, dbplyr, dplyr, duckdb (>= 0.4.0), future, future.apply,
+        future.callr, lgr, polars, RSQLite, testthat (>= 3.0.0), tibble
+Additional_repositories: https://community.r-multiverse.org
 Config/testthat/edition: 3
-RoxygenNote: 7.2.3
+Encoding: UTF-8
+RoxygenNote: 7.3.2
 NeedsCompilation: no
-Packaged: 2023-11-04 09:27:31 UTC; michel
-Author: Michel Lang [cre, aut] (<https://orcid.org/0000-0001-9754-0393>)
-Maintainer: Michel Lang <michellang@gmail.com>
+Packaged: 2025-07-17 11:41:01 UTC; marc
+Author: Michel Lang [aut] (ORCID: <https://orcid.org/0000-0001-9754-0393>),
+  Lona Koers [aut],
+  Marc Becker [cre, aut] (ORCID: <https://orcid.org/0000-0002-8115-0400>)
+Maintainer: Marc Becker <marcbecker@posteo.de>
 Repository: CRAN
-Date/Publication: 2023-11-04 09:40:02 UTC
+Date/Publication: 2025-07-18 08:40:02 UTC

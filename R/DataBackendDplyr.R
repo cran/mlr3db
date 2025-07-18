@@ -86,7 +86,7 @@ DataBackendDplyr = R6Class("DataBackendDplyr", inherit = DataBackend, cloneable 
     #' Note that only objects of class `"tbl_lazy"` will be converted to a [DataBackendDplyr]
     #' (this includes all connectors from \CRANpkg{dbplyr}).
     #' Local `"tbl"` objects such as [`tibbles`][tibble::tibble()] will converted to a
-    #' [DataBackendDataTable][mlr3::DataBackendDataTable].
+    #' [mlr3::DataBackendDataTable][mlr3::DataBackendDataTable].
     initialize = function(data, primary_key, strings_as_factors = TRUE, connector = NULL) {
       loadNamespace("DBI")
       loadNamespace("dbplyr")
@@ -129,11 +129,10 @@ DataBackendDplyr = R6Class("DataBackendDplyr", inherit = DataBackend, cloneable 
     #' column name are silently ignored.
     #' Rows are guaranteed to be returned in the same order as `rows`, columns may be returned in an arbitrary order.
     #' Duplicated row ids result in duplicated rows, duplicated column names lead to an exception.
-    data = function(rows, cols, data_format = "data.table") {
+    data = function(rows, cols) {
       private$.reconnect()
       rows = assert_integerish(rows, coerce = TRUE)
       assert_names(cols, type = "unique")
-      assert_choice(data_format, self$data_formats)
       cols = intersect(cols, colnames(private$.data))
 
       res = setDT(dplyr::collect(dplyr::select_at(
@@ -261,16 +260,6 @@ DataBackendDplyr = R6Class("DataBackendDplyr", inherit = DataBackend, cloneable 
   ),
 
   private = list(
-    # @description
-    # Finalizer which disconnects from the database.
-    # This is called during garbage collection of the instance.
-    # @return `logical(1)`, the return value of [DBI::dbDisconnect()].
-    finalize = function() {
-      if (isTRUE(self$valid)) {
-        DBI::dbDisconnect(private$.data$src$con)
-      }
-    },
-
     .calculate_hash = function() {
       private$.reconnect()
       calculate_hash(private$.data)
@@ -290,6 +279,12 @@ DataBackendDplyr = R6Class("DataBackendDplyr", inherit = DataBackend, cloneable 
         }
 
         private$.data$src$con = con
+      }
+    },
+
+    finalize = function() {
+      if (isTRUE(self$valid)) {
+        DBI::dbDisconnect(private$.data$src$con)
       }
     }
   )
