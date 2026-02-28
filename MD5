@@ -1,6 +1,6 @@
-f2fa235ba8cd01407af4235eeea29bbe *DESCRIPTION
+73af82d469f4159bcd80347614b32303 *DESCRIPTION
 8cd2d9748f189c6770a23bbb92c76a9e *NAMESPACE
-55f12669f67b15ab36ae1bdfa7bc23a0 *NEWS.md
+a0c55448a2a6fa1e0f65881d4902657a *NEWS.md
 942521f258fd6d357393b697e7519940 *R/DataBackendDplyr.R
 2c38136a9b5abaf7a7fd1456b7dd70c5 *R/DataBackendDuckDB.R
 01c404c31ecb17766bdbf14d454c3e64 *R/DataBackendPolars.R
@@ -35,6 +35,6 @@ d30a5668b55b3487f8c27eb29e3ac23e *tests/testthat/test_as_polars_backend.R
 489c7f633dacea62f44f003f0de54088 *tests/testthat/test_duckdb.R
 96c373a3e0ed226e03cd242b89c48841 *tests/testthat/test_polars.R
 fa00616f56af7ad21e497e45c64e4ec2 *tests/testthat/test_reconnect.R
-cf1354787da4813f0c967f00d0ed9782 *tests/testthat/test_train_predict_dplyr.R
-5e7f5af88c9f540b42a2e2ada4eef138 *tests/testthat/test_train_predict_duckdb.R
-ec8231ab3a59d1c78162850afc7dbdf3 *tests/testthat/test_train_predict_polars.R
+0d53c9fc7860c29227ca9826af01b918 *tests/testthat/test_train_predict_dplyr.R
+ebb770cb47a7c2081ba66c562d2e6b33 *tests/testthat/test_train_predict_duckdb.R
+fd65d66f7c11b55d3da824f8e1d094fa *tests/testthat/test_train_predict_polars.R

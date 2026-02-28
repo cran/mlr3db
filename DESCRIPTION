@@ -1,6 +1,6 @@
 Package: mlr3db
 Title: Data Base Backend for 'mlr3'
-Version: 0.7.0
+Version: 0.7.1
 Authors@R: c(
     person("Michel", "Lang", , "michellang@gmail.com", role = c("aut"),
            comment = c(ORCID = "0000-0001-9754-0393")),
@@ -18,7 +18,7 @@ Description: Extends the 'mlr3' package with a backend to transparently
 License: LGPL-3
 URL: https://mlr3db.mlr-org.com, https://github.com/mlr-org/mlr3db
 BugReports: https://github.com/mlr-org/mlr3db/issues
-Depends: mlr3 (>= 0.13.0), R (>= 3.1.0)
+Depends: mlr3 (>= 1.5.0), R (>= 3.1.0)
 Imports: backports, checkmate, data.table, mlr3misc (>= 0.10.0), R6
 Suggests: DBI, dbplyr, dplyr, duckdb (>= 0.4.0), future, future.apply,
         future.callr, hms, lgr, polars (>= 1.1.0), RSQLite, rlang,
@@ -28,10 +28,10 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 RoxygenNote: 7.3.3
 NeedsCompilation: no
-Packaged: 2025-10-06 08:05:57 UTC; marc
+Packaged: 2026-02-28 10:12:44 UTC; marc
 Author: Michel Lang [aut] (ORCID: <https://orcid.org/0000-0001-9754-0393>),
   Lona Koers [aut],
   Marc Becker [cre, aut] (ORCID: <https://orcid.org/0000-0002-8115-0400>)
 Maintainer: Marc Becker <marcbecker@posteo.de>
 Repository: CRAN
-Date/Publication: 2025-10-06 08:30:07 UTC
+Date/Publication: 2026-02-28 10:30:02 UTC
